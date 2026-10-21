@@ -174,7 +174,10 @@ final class ScrollEventTap: @unchecked Sendable {
             CFMachPortInvalidate(port)
             return nil
         }
-        let loop = CFRunLoopGetCurrent()
+        guard let loop = CFRunLoopGetCurrent() else {
+            CFMachPortInvalidate(port)
+            return nil
+        }
         engine.withLock { engine in
             engine.port = port
             engine.runLoop = loop

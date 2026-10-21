@@ -30,7 +30,8 @@ enum AccessibilityPermission {
     /// Shows the system prompt the first time. Later calls are a cheap check
     /// plus our own menu item, because macOS will not keep re-showing the dialog.
     static func prompt() {
-        let options = [kAXTrustedCheckOptionPrompt: true] as CFDictionary
+        let promptKey = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
+        let options = [promptKey: true] as CFDictionary
         _ = AXIsProcessTrustedWithOptions(options)
     }
 
