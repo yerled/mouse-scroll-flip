@@ -1,0 +1,65 @@
+Mouse Scroll Flip
+==================
+
+Reverse the mouse wheel so it feels like Windows, while leaving trackpad
+and Magic Mouse scrolling alone. Keep macOS "Natural scrolling" ON.
+
+This build is ad-hoc signed. There is no paid Apple Developer certificate,
+so macOS will block the app the first time you open a download.
+
+Install
+-------
+1. Drag "Mouse Scroll Flip.app" to the Applications folder.
+2. Right-click the app and choose Open, then Open again.
+   If macOS says the app is damaged or from an unidentified developer, run:
+
+   xattr -dr com.apple.quarantine "/Applications/Mouse Scroll Flip.app"
+
+3. A mouse icon appears in the menu bar. Allow Accessibility access when
+   macOS asks. You can also use the menu item "Open Accessibility Settings…".
+   After you turn the permission on, the app starts working by itself.
+   Quit and reopen it only if the menu still says permission is missing.
+4. Leave System Settings → Mouse / Trackpad → Natural scrolling turned ON.
+
+The menu
+--------
+- Reverse mouse wheel: turn the fix on or off.
+- Also reverse horizontal: tilt-wheel / sideways wheel. Off by default.
+- Launch at Login: starts the app when you log in (macOS may ask you to
+  approve it under System Settings → General → Login Items & Extensions).
+- Quit.
+
+Leave the app running. Quitting it returns the mouse wheel to macOS behavior.
+
+
+鼠标滚轮翻转
+============
+
+在保持触控板和妙控鼠标滚动方向不变的前提下，把普通鼠标滚轮改成
+Windows 那种方向。请让 macOS 的「自然滚动」保持打开。
+
+这个安装包是临时签名（ad-hoc），没有付费的 Apple 开发者证书。
+从网络下载后，macOS 第一次打开时会拦截。
+
+安装
+----
+1. 把「Mouse Scroll Flip.app」拖到「应用程序」文件夹。
+2. 按住 Control 点按（或右键）应用，选择「打开」，再点一次「打开」。
+   如果系统提示应用已损坏或来自身份不明的开发者，在终端执行：
+
+   xattr -dr com.apple.quarantine "/Applications/Mouse Scroll Flip.app"
+
+3. 菜单栏会出现鼠标图标。按提示允许「辅助功能」。也可以用菜单里的
+   「打开辅助功能设置…」。打开权限后，应用会自己开始工作，一般不用重启。
+   只有菜单仍然提示缺少权限时，才需要退出后重新打开。
+4. 保持「系统设置 → 鼠标 / 触控板 → 自然滚动」为打开。
+
+菜单
+----
+- 反转鼠标滚轮：开关整个功能。
+- 同时反转水平滚动：滚轮左右倾斜。默认关闭。
+- 登录时启动：登录后自动打开（macOS 可能会要求你在
+  「系统设置 → 通用 → 登录项与扩展」里允许）。
+- 退出。
+
+请让应用保持运行。退出后，鼠标滚轮会恢复成 macOS 原来的方向。

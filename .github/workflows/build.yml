@@ -1,0 +1,70 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - "cursor/**"
+    tags:
+      - "v*"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Xcode and Swift
+        run: |
+          sudo xcode-select -s /Applications/Xcode.app || true
+          xcodebuild -version
+          swift --version
+
+      - name: Test
+        run: swift test
+
+      - name: Build universal app
+        run: ./scripts/build-app.sh
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: MouseScrollFlip-${{ github.run_id }}
+          path: |
+            dist/*.zip
+            dist/*.dmg
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.zip
+            dist/*.dmg
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          body: |
+            Mouse wheel scrolling is reversed so it feels like Windows. Trackpad and Magic Mouse scrolling stay on macOS natural scrolling.
+
+            ## Install
+
+            1. Download `MouseScrollFlip-*-macOS.dmg` (or the `.zip`).
+            2. Drag **Mouse Scroll Flip** to Applications.
+            3. The app is ad-hoc signed. There is no paid Apple Developer certificate. If macOS blocks the download:
+               - Right-click the app → **Open** → **Open**, or
+               - `xattr -dr com.apple.quarantine "/Applications/Mouse Scroll Flip.app"`
+            4. Leave **Natural scrolling** on (System Settings → Mouse and Trackpad).
+            5. Grant **Accessibility** when asked. The menu-bar icon picks the permission up without a restart.
+
+            从网络下载的应用没有付费开发者签名。若 macOS 拦截，请右键应用选「打开」，或执行 `xattr -dr com.apple.quarantine "/Applications/Mouse Scroll Flip.app"`。保持「自然滚动」打开，并允许「辅助功能」。触控板和妙控鼠标不会被反转。
